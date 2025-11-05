@@ -6,107 +6,141 @@
   <title>특이점이 온다</title>
   <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
   <style>
+    /* ===== 기본 설정 ===== */
     body {
       margin: 0;
+      padding: 0;
       font-family: 'Pretendard', sans-serif;
       background: #fff;
       color: #111;
-      line-height: 1.7;
       overflow-x: hidden;
     }
 
     section {
-      width: 80%;
+      width: 90%;
       max-width: 900px;
-      margin: 100px auto;
+      margin: 140px auto;
+      text-align: center;
     }
 
+    /* ===== 인용 블록 ===== */
     .quote-block {
-      background: linear-gradient(145deg, #1f1f1f, #2e2e2e);
-      color: #fff;
-      border-radius: 32px;
+      border-radius: 28px;
       padding: 80px 60px;
       font-size: 2.2rem;
       font-weight: 800;
       letter-spacing: -0.02em;
+      line-height: 1.4;
+      color: #fff;
+      background: linear-gradient(145deg, #1f1f1f, #303030);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 50px;
+      transition: transform 0.6s ease, box-shadow 0.6s ease;
     }
 
+    .quote-block:hover {
+      transform: scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    /* ===== 설명 블록 ===== */
     .text-block {
-      font-size: 1.05rem;
+      max-width: 820px;
+      margin: 0 auto;
       color: #222;
-      margin-bottom: 120px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      text-align: left;
     }
 
+    /* ===== 이미지 ===== */
     .city-img {
-      display: block;
       width: 100%;
-      max-width: 950px;
-      margin: 100px auto;
-      border-radius: 24px;
+      max-width: 1000px;
+      margin: 120px auto;
+      display: block;
+      border-radius: 28px;
       object-fit: cover;
       box-shadow: 0 10px 40px rgba(0,0,0,0.15);
     }
 
+    /* ===== 페이드 인 효과 ===== */
     .fade-in {
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeInUp 1.2s ease forwards;
+      transform: translateY(40px);
+      animation: fadeUp 1.2s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(60px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* ===== 색상 테마 ===== */
+    .theme-dark {
+      background: linear-gradient(145deg, #202020, #333);
+    }
+    .theme-indigo {
+      background: linear-gradient(145deg, #1a1a40, #28285f);
+    }
+    .theme-blue {
+      background: linear-gradient(145deg, #0f1b2b, #1e3a5f);
+    }
+    .theme-purple {
+      background: linear-gradient(145deg, #2a0e4a, #3f1e65);
     }
   </style>
 </head>
 <body>
 
+  <!-- 블록 1 -->
   <section class="fade-in">
-    <div class="quote-block">특이점이 온다 (The Singularity is Near)</div>
+    <div class="quote-block theme-indigo">특이점이 온다 (The Singularity is Near)</div>
     <div class="text-block">
-      인공지능이 인간의 지능을 초월하고, 그 이후의 발전 속도가 인간이 예측할 수 없는 단계로 진입하는 순간 — 그것이 ‘특이점(Singularity)’이다.  
-      레이 커즈와일은 이 개념을 통해 기술 진화의 방향을 근본적으로 재해석했다.  
-      특이점은 단순히 미래 예측이 아니라, 인간 존재와 문명의 진화 그 자체에 대한 통찰이다.
+      인류의 기술 발전은 단순한 진보가 아니라, ‘지능의 본질’을 재구성하는 여정이다.  
+      레이 커즈와일은 특이점을 단순한 과학 이론이 아니라, 인간 문명의 다음 단계로 바라본다.  
+      특이점이란, **기계가 인간의 지능을 초월하고, 그 이후의 진화 속도가 인간의 이해를 넘어서는 순간**이다.  
+      그것은 파괴가 아닌, **새로운 형태의 창조**를 의미한다.
     </div>
   </section>
 
-  <img src="city.png" alt="city" class="city-img fade-in">
+  <!-- 구분용 도시 이미지 -->
+  <img src="city.png" alt="City Skyline" class="city-img fade-in">
 
+  <!-- 블록 2 -->
   <section class="fade-in">
-    <div class="quote-block">“기술의 성장은 선형이 아니다 — 그것은 기하급수적이다.”</div>
+    <div class="quote-block theme-dark">“기술의 성장은 선형이 아니다 — 그것은 기하급수적이다.”</div>
     <div class="text-block">
-      커즈와일은 디지털 기술의 발전이 단순한 가속이 아니라 지수적 복합성의 증대를 초래한다고 보았다.  
-      연산능력·저장공간·네트워크 대역폭의 동시 향상은 서로를 증폭시키며 예측의 범위를 좁혀버린다.
+      커즈와일은 기술 발전이 단순한 가속이 아니라, **지수적 복합성의 증대**라고 주장한다.  
+      연산 능력·저장 공간·네트워크 대역폭은 서로를 증폭시키며, 기술 진보의 속도는 예측 불가능해진다.  
       <br><br>
-      <b>구체적 증거와 메커니즘</b><br>
-      - 무어의 법칙: 집적회로 성능의 규칙적 향상은 연산 단가를 떨어뜨려 새로운 애플리케이션을 가능케 했다.<br>
-      - 데이터 폭발: 센서, 모바일, IoT로 생성되는 데이터는 학습 가능한 모델을 비약적으로 향상시킨다.<br>
-      - 피드백 루프: 더 많은 데이터 → 더 나은 모델 → 더 많은 사용 → 더 많은 데이터의 선순환.
+      <b>구체적 근거</b><br>
+      ▪ 무어의 법칙 — 연산 단가 하락은 새로운 혁신의 토대가 되었다.<br>
+      ▪ 데이터 폭발 — 센서와 IoT는 학습 가능한 데이터의 양을 비약적으로 확장시켰다.<br>
+      ▪ 피드백 루프 — 더 많은 데이터 → 더 나은 모델 → 더 많은 사용 → 다시 데이터의 순환.
       <br><br>
-      <b>영향</b><br>
-      이러한 메커니즘은 연구·산업·사회 구조 전반에 급격한 변화를 만들어낸다 —  
-      자동화된 진단 시스템, 고빈도 트레이딩, 실시간 시뮬레이션 등은 이미 그 사례다.
+      <b>결과</b><br>
+      의료, 금융, 예술, 과학 등 모든 분야에서 **인간 중심의 사고 구조가 재편되고 있다.**
     </div>
   </section>
 
+  <!-- 블록 3 -->
   <section class="fade-in">
-    <div class="quote-block">“인공지능은 도구가 아니라 동반자다.”</div>
+    <div class="quote-block theme-blue">“인공지능은 도구가 아니라, 동반자다.”</div>
     <div class="text-block">
-      커즈와일은 AI를 인간의 경쟁자로 보지 않았다. 오히려 인간과 기계의 융합을 통한 새로운 형태의 지능이 등장할 것이라 말했다.  
-      그 지능은 감정·창의·논리를 통합한 새로운 ‘의식의 형태’로 진화하며, 인간의 한계를 재정의하게 된다.  
-      이러한 관점은 단순한 기술 낙관론이 아니라, ‘인간이란 무엇인가’에 대한 철학적 질문이다.
+      커즈와일은 인공지능을 인간의 경쟁자가 아닌 **협력자이자 확장된 자아**로 보았다.  
+      그는 기술과 인간이 융합될 때, 새로운 ‘의식의 형태’가 탄생한다고 말한다.  
+      AI는 인간의 사고·감정·창의성을 증폭시키며, 인간의 한계를 넘어 **공진화(co-evolution)** 하는 존재로 성장한다.
     </div>
   </section>
 
+  <!-- 블록 4 -->
   <section class="fade-in">
-    <div class="quote-block">“우리는 기술을 창조하지만, 곧 기술이 우리를 다시 창조한다.”</div>
+    <div class="quote-block theme-purple">“우리는 기술을 창조하지만, 곧 기술이 우리를 다시 창조한다.”</div>
     <div class="text-block">
-      생물학적 진화는 느리지만, 기술적 진화는 그 위를 비약적으로 가속시킨다.  
-      유전자 편집, 뇌-기계 인터페이스, 인공지능은 인간의 본질을 재조형하며, ‘진화의 주체’가 인간에서 시스템으로 넘어가고 있다.  
-      특이점은 인류의 종말이 아니라, 새로운 형태의 존재로의 진화의 시작점일 수 있다.
+      생물학적 진화는 느리지만, 기술 진화는 그 위를 가속시킨다.  
+      유전자 편집, 뇌-기계 인터페이스, 인공지능은 인간의 존재 방식을 재구성하고 있다.  
+      **특이점은 인류의 종말이 아니라, 새로운 형태의 ‘진화의 시작’이다.**  
+      우리는 기술을 만들지만, 그 기술은 결국 우리의 다음 진화를 설계한다.
     </div>
   </section>
 
