@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>특이점이 온다 — 통섭의 인사이트 (타이포그래피)</title>
+
+  <!-- Pretendard (정확 표기) -->
+  <link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1: #070708;
+      --bg2: #121214;
+      --muted: #bfc4c8;
+      --accent: #ffffff;
+      --accent-2: #ffd66b;
+      --maxw: 1200px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg1) 0%, var(--bg2) 100%);color:var(--accent);-webkit-font-smoothing:antialiased;}
+    body{font-family: 'Pretendard', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;}
+
+    /* full-screen block layout */
+    .stage { width:100%; max-width:var(--maxw); margin:0 auto; }
+    .block {
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:6vh 6vw;
+      scroll-snap-align:start;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* container for content to constrain width */
+    .block-inner { max-width:980px; width:100%; text-align:center; }
+
+    /* Main quote (one-liner) - QPI bold style using Pretendard Bold */
+    .qpi-bold {
+      font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+      font-weight: 800; /* Pretendard Bold */
+      font-size: clamp(28px, 6vw, 64px); /* responsive large type */
+      line-height:1.02;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      margin:0;
+      display:block;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    /* explanation under quote */
+    .desc {
+      margin-top:28px;
+      color:var(--muted);
+      font-size: clamp(15px, 1.6vw, 20px);
+      max-width:72%;
+      margin-left:auto;
+      margin-right:auto;
+      line-height:1.7;
+    }
+
+    /* tiny source */
+    .source { margin-top:14px;color: #9aa3a8;font-size:14px; }
+
+    /* subtle background textures (placeholders) */
+    .bg-faint {
+      position:absolute;inset:0;opacity:0.05;pointer-events:none;background-image:radial-gradient(ellipse at center, rgba(255,255,255,0.02), transparent 35%);mix-blend-mode:screen;
+    }
+
+    /* animation */
+    .reveal { opacity:0; transform: translateY(24px); transition: opacity 700ms cubic-bezier(.2,.9,.2,1), transform 700ms cubic-bezier(.2,.9,.2,1); }
+    .reveal.visible { opacity:1; transform:none; }
+
+    /* scroll snap */
+    html { scroll-behavior: smooth; }
+    main { scroll-snap-type: y mandatory; overflow-x: hidden; }
+
+    /* small accent line */
+    .accent-line { width:64px;height:4px;background:var(--accent-2);display:inline-block;margin-bottom:22px;border-radius:4px; }
+
+    /* responsive tweaks */
+    @media (max-width:720px){
+      .qpi-bold{white-space:normal;font-size:clamp(22px,7.6vw,44px)}
+      .desc{max-width:90%}
+      .accent-line{width:48px}
+    }
+
+  </style>
+</head>
+<body>
+  <main class="stage">
+
+    <!-- Hero block -->
+    <section class="block" id="hero">
+      <div class="bg-faint"></div>
+      <div class="block-inner reveal">
+        <span class="accent-line" aria-hidden="true"></span>
+        <h1 class="qpi-bold">특이점이 온다</h1>
+        <p class="desc">레이 커즈와일, <em>The Singularity is Near</em> — 기술의 기하급수적 가속과 인간의 초월을 묻는 고전. 이 페이지는 책의 핵심 인용과 통찰을 한 줄씩, 읽기 쉽게 배열한 타이포그래피 에세이입니다.</p>
+        <div class="source">저자: Ray Kurzweil / 역자: 김명남·장시형 (김영사, 2017)</div>
+      </div>
+    </section>
+
+    <!-- Block 1: 기술 가속 -->
+    <section class="block" id="b1">
+      <div class="block-inner reveal">
+        <h2 class="qpi-bold">기술의 성장은 선형이 아니라 기하급수적이다.</h2>
+        <p class="desc">커즈와일은 무어의 법칙을 포함해 디지털 기술이 지수적으로 발전한다고 주장한다. 계산능력의 증가는 단순 속도의 문제가 아니라, 우리가 문제를 정의하고 해결하는 방식 자체를 변화시킨다.</p>
+        <div class="source">출처: 『The Singularity is Near』 — 핵심 주장</div>
+      </div>
+    </section>
+
+    <!-- Block 2: GNR -->
+    <section class="block" id="b2">
+      <div class="block-inner reveal">
+        <h2 class="qpi-bold">유전학, 나노기술, 로봇공학이 결합하면 새로운 시대가 온다.</h2>
+        <p class="desc">GNR의 융합은 생명과 물질을 재구성할 수 있는 능력을 부여한다. 유전자 편집과 나노기술은 인간 신체를 재설계할 수 있게 하고, 로봇/AI는 이를 통제·확장시키는 도구가 된다.</p>
+        <div class="source">요지 요약</div>
+      </div>
+    </section>
+
+    <!-- Block 3: 인간과 기계 -->
+    <section class="block" id="b3">
+      <div class="block-inner reveal">
+        <h2 class="qpi-bold">인간과 기계의 경계는 점차 희미해진다.</h2>
+        <p class="desc">뇌-컴퓨터 인터페이스, AI 보조 장치 등은 인지능력을 확장한다. '트랜스휴먼' 개념은 더 이상 SF가 아니라, 기술적 연동을 통해 현실화되는 가능성이다.</p>
+        <div class="source">핵심 개념 정리</div>
+      </div>
+    </section>
+
+    <!-- Block 4: 의식과 정체성 -->
+    <section class="block" id="b4">
+      <div class="block-inner reveal">
+        <h2 class="qpi-bold">연산능력은 넘을 수 있어도, '영혼'을 재현할 수 있을까?</h2>
+        <p class="desc">특이점의 찬성자들은 연산능력의 초월을 근거로 삼는다. 반대자들은 주관적 경험(의식), 열정, 정체성 같은 비가시적 요소를 들어 기계와 인간을 구분한다.</p>
+        <div class="source">존재론적·철학적 반론</div>
+      </div>
+    </section>
+
+    <!-- Block 5: 윤리와 거버넌스 -->
+    <section class="block" id="b5">
+      <div class="block-inner reveal">
+        <h2 class="qpi-bold">기술의 속도에 맞춘 윤리와 제도가 필요하다.</h2>
+        <p class="desc">트랜스휴먼, 자율적 AI의 등장에 대비해 법적·윤리적·국제적 거버넌스가 마련되어야 한다. '할 수 있다'와 '해야 한다'는 엄연히 다르다.</p>
+        <div class="source">정책적 제언</div>
+      </div>
+    </section>
+
+    <!-- Block 6: 통찰/결론 -->
+    <section class="block" id="b6">
+      <div class="block-inner reveal">
+        <h2 class="qpi-bold">특이점은 인류의 재정의지점이다.</h2>
+        <p class="desc">특이점은 멸망이 아니라 재정의일 수 있다. 핵심은 기술적 능력이 아니라, 그 능력을 어떻게 인간의 존엄과 공공선에 맞게 설계하고 운영하느냐다.</p>
+        <div class="source">통합적 통찰</div>
+      </div>
+    </section>
+
+    <!-- Footer minimal -->
+    <section class="block" id="footer" style="align-items:flex-start; padding-top:10vh; padding-bottom:10vh;">
+      <div class="block-inner reveal" style="text-align:center;">
+        <p class="desc" style="max-width:800px;">© 2025 통섭의 인사이트</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // IntersectionObserver: reveal each block when visible
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if(e.isIntersecting) e.target.querySelector('.block-inner')?.classList.add('visible');
+      });
+    }, { threshold: 0.18 });
+
+    document.querySelectorAll('.block').forEach(b => io.observe(b));
+
+    // add 'visible' class to initial blocks already in view
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.block').forEach(b => {
+        const r = b.getBoundingClientRect();
+        if(r.top < window.innerHeight && r.bottom > 0) b.querySelector('.block-inner')?.classList.add('visible');
+      });
+    });
+  </script>
+</body>
+</html>
