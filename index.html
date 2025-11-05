@@ -3,304 +3,208 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>특이점이 온다</title>
+  <title>특이점이 온다 — 통섭의 인사이트</title>
 
-  <!-- Pretendard (정확 표기) -->
+  <!-- Pretendard -->
   <link href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 
   <style>
-    :root{
+    :root {
       --deep-violet-1: #1A1528;
       --deep-violet-2: #332244;
-      --night-indigo-1:#0D1321;
-      --night-indigo-2:#1B263B;
-      --steel-cyan-1:#102027;
-      --steel-cyan-2:#274046;
-      --dark-emerald-1:#0B2B26;
-      --dark-emerald-2:#12443E;
-      --iron-gray-1:#0B0B0B;
-      --iron-gray-2:#1A1A1A;
+      --night-indigo-1: #0D1321;
+      --night-indigo-2: #1B263B;
+      --steel-cyan-1: #102027;
+      --steel-cyan-2: #274046;
+      --dark-emerald-1: #0B2B26;
+      --dark-emerald-2: #12443E;
+      --iron-gray-1: #0B0B0B;
+      --iron-gray-2: #1A1A1A;
 
       --muted: #bfc4c8;
       --highlight: #ffd66b;
       --white: #ffffff;
-
-      --maxw: 1200px;
-      --side-padding: 6vw;
     }
 
-    /* Basic reset */
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      font-family: 'Pretendard', system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif;
-      background: linear-gradient(180deg,var(--iron-gray-1),var(--iron-gray-2));
-      color:var(--white);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow-y:auto;
-      scroll-behavior:smooth;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Pretendard', system-ui, sans-serif;
+      background: var(--iron-gray-1);
+      color: var(--white);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* Scroll snapping layout */
-    main{max-width:var(--maxw);margin:0 auto;}
-    .stage{
-      scroll-snap-type: y mandatory;
-      -webkit-overflow-scrolling: touch;
-    }
-    .block{
-      min-height:100vh;
-      padding: calc(6vh) var(--side-padding);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      scroll-snap-align:start;
-      position:relative;
-      overflow:hidden;
-    }
-    .block-inner{max-width:980px;width:100%;text-align:center;position:relative;z-index:2}
-
-    /* subtle grain / vignette layer to mimic qpi feel */
-    .texture{
-      position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:0.06;
-      background-image:
-        radial-gradient(circle at 10% 10%, rgba(255,255,255,0.02), transparent 8%),
-        radial-gradient(circle at 90% 90%, rgba(0,0,0,0.06), transparent 20%);
+    main {
+      width: 100%;
+      overflow-x: hidden;
     }
 
-    /* QPI-bold style using Pretendard strong weight */
-    .qpi-bold{
-      font-weight:800;
-      font-size:clamp(28px, 6vw, 64px);
-      line-height:1.02;
-      letter-spacing:-0.01em;
-      color:var(--white);
-      margin:0;
-      word-break:keep-all;
-      hyphens:none;
+    section.block {
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      padding: 8vh 6vw;
+      overflow: hidden;
     }
 
-    /* ensure quotes do not overflow — allow wrapping but keep one strong line visually */
-    .qpi-bold span{display:inline-block;white-space:normal}
-
-    .desc{
-      margin-top:26px;
-      color:var(--muted);
-      font-size:clamp(15px,1.6vw,20px);
-      line-height:1.75;
-      max-width:72%;
-      margin-left:auto;margin-right:auto;
+    /* block backgrounds */
+    .theme-deepviolet {
+      background: linear-gradient(135deg, var(--deep-violet-1), var(--deep-violet-2));
+    }
+    .theme-indigo {
+      background: linear-gradient(135deg, var(--night-indigo-1), var(--night-indigo-2));
+    }
+    .theme-cyan {
+      background: linear-gradient(135deg, var(--steel-cyan-1), var(--steel-cyan-2));
+    }
+    .theme-emerald {
+      background: linear-gradient(135deg, var(--dark-emerald-1), var(--dark-emerald-2));
+    }
+    .theme-iron {
+      background: linear-gradient(135deg, var(--iron-gray-1), var(--iron-gray-2));
     }
 
-    .source{
-      margin-top:14px;color:#9aa3a8;font-size:14px;
+    /* city background block */
+    .theme-city {
+      background: url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=2100&q=80") center/cover no-repeat;
+    }
+    .theme-city::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(3px);
     }
 
-    /* accent small line like qpi */
-    .accent-line{width:68px;height:4px;border-radius:3px;background:var(--highlight);display:inline-block;margin-bottom:20px}
-
-    /* per-block background themes (dark variants) */
-    .theme-deepviolet{ background: linear-gradient(135deg,var(--deep-violet-1),var(--deep-violet-2)); }
-    .theme-indigo{ background: linear-gradient(135deg,var(--night-indigo-1),var(--night-indigo-2)); }
-    .theme-cyan{ background: linear-gradient(135deg,var(--steel-cyan-1),var(--steel-cyan-2)); }
-    .theme-emerald{ background: linear-gradient(135deg,var(--dark-emerald-1),var(--dark-emerald-2)); }
-    .theme-iron{ background: linear-gradient(135deg,var(--iron-gray-1),var(--iron-gray-2)); }
-
-    /* overlay vignette for depth */
-    .vignette{ position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,0.25) 70%);pointer-events:none; }
-
-    /* reveal animation */
-    .reveal{opacity:0;transform:translateY(30px) scale(0.996);transition:transform 700ms cubic-bezier(.2,.9,.2,1),opacity 700ms cubic-bezier(.2,.9,.2,1)}
-    .reveal.visible{opacity:1;transform:none}
-
-    /* subtle underline for hero subtitle */
-    .hero-sub{margin-top:18px;color:var(--muted);font-size:clamp(14px,1.2vw,18px)}
-
-    /* small helper for one-line emphasis on mobile */
-    @media (max-width:720px){
-      .qpi-bold{font-size:clamp(22px,8vw,40px)}
-      .desc{max-width:92%}
+    .block-inner {
+      max-width: 1000px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
     }
 
-    /* Accessibility: focus outlines */
-    a:focus, button:focus{outline:3px solid rgba(255,214,107,0.18);outline-offset:3px}
+    .block-inner.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
+    .qpi-bold {
+      font-weight: 800;
+      font-size: clamp(30px, 6vw, 68px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      word-break: keep-all;
+    }
+
+    .desc {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: clamp(16px, 1.6vw, 20px);
+      line-height: 1.8;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .accent-line {
+      width: 80px;
+      height: 4px;
+      background: var(--highlight);
+      border-radius: 2px;
+      margin: 0 auto 28px auto;
+    }
+
+    .source {
+      margin-top: 14px;
+      font-size: 14px;
+      color: #9aa3a8;
+    }
+
+    /* subtle texture */
+    .texture {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.03), transparent 10%),
+                  radial-gradient(circle at 80% 80%, rgba(0,0,0,0.06), transparent 30%);
+      mix-blend-mode: overlay;
+      opacity: 0.07;
+    }
   </style>
 </head>
 <body>
-  <main class="stage" role="main" aria-labelledby="page-title">
+  <main>
 
-    <!-- BLOCK: HERO -->
-    <section class="block theme-deepviolet" id="hero" aria-label="소개">
+    <!-- HERO -->
+    <section class="block theme-deepviolet">
       <div class="texture"></div>
-      <div class="vignette"></div>
-      <div class="block-inner reveal">
-        <div class="accent-line" aria-hidden="true"></div>
-        <h1 id="page-title" class="qpi-bold">
-          <span>특이점이 온다</span>
-        </h1>
-
-        <p class="hero-sub" style="max-width:820px;margin-left:auto;margin-right:auto">
-          <strong>The Singularity is Near</strong> — 인간이 생물학적 한계를 넘어설 때,
-          기술이 통제와 예측의 경계를 넘어서는 그 순간을 우리는 무엇이라 불러야 할까?
-        </p>
-
-        <p class="desc">레이 커즈와일은 기술의 기하급수적 발전이 곧 인간 지능의 재구성으로 이어질 수 있다고 주장한다. 이 페이지는 그 질문들을 한 줄의 인용으로 정리하고, 이어지는 짧은 해설로 심금을 울리는 흐름을 만들고자 합니다.</p>
-        <div class="source">저자: Ray Kurzweil · 번역: 김명남·장시형 (김영사, 2017)</div>
+      <div class="block-inner">
+        <div class="accent-line"></div>
+        <h1 class="qpi-bold">특이점이 온다</h1>
+        <p class="desc">The Singularity is Near — 인간이 생물학적 한계를 넘어설 때, 기술이 통제와 예측의 경계를 넘어서는 그 순간.</p>
+        <div class="source">Ray Kurzweil (2005) — 김영사</div>
       </div>
     </section>
 
-    <!-- BLOCK 1: 기술 가속 (Deep Violet) -->
-    <section class="block theme-deepviolet" id="b-tech" aria-label="기술 가속">
+    <!-- TECH ACCELERATION -->
+    <section class="block theme-indigo">
       <div class="texture"></div>
-      <div class="vignette"></div>
-      <div class="block-inner reveal">
-        <h2 class="qpi-bold"><span>기술의 성장은 선형이 아니라 기하급수적이다.</span></h2>
-        <p class="desc">
-          컴퓨팅 파워는 일정한 간격으로 두 배가 된다. 하지만 커즈와일이 말하는 건 단순한 속도의 증가가 아니다.
-          서로 다른 기술들이 서로를 밀어주며 모일 때, 변화는 예측불가능한 지점으로 폭발한다 — 그 지점이 바로 '특이점'이다.
-        </p>
-        <div class="source">핵심: 기하급수적 성장</div>
+      <div class="block-inner">
+        <h2 class="qpi-bold">기술의 성장은 선형이 아니라 기하급수적이다.</h2>
+        <p class="desc">컴퓨팅 파워는 일정한 간격으로 두 배가 된다. 그러나 변화의 본질은 속도가 아니라 ‘결합’에 있다. 기술이 서로를 가속시킬 때, 미래는 폭발한다.</p>
       </div>
     </section>
 
-    <!-- BLOCK 2: GNR 결합 (Night Indigo) -->
-    <section class="block theme-indigo" id="b-gnr" aria-label="GNR">
-      <div class="texture"></div>
-      <div class="vignette"></div>
-      <div class="block-inner reveal">
-        <h2 class="qpi-bold"><span>유전공학·나노기술·로봇공학의 결합, 그것이 변화를 가속한다.</span></h2>
-        <p class="desc">
-          유전체 해독은 설계의 문을 열고, 나노공학은 물질을 정밀하게 재구성하며, 로봇은 물리적 행위를 맡는다.
-          이 세 축의 결합은 하나의 기술이 아닌, 새로운 존재를 만들어낼 잠재력을 지닌다.
-        </p>
-        <div class="source">핵심: GNR 융합</div>
+    <!-- CITY (인간과 기술의 융합) -->
+    <section class="block theme-city">
+      <div class="block-inner">
+        <h2 class="qpi-bold">인간과 기계의 경계는 이미 사라지고 있다.</h2>
+        <p class="desc">도시의 불빛 속엔 인간의 의식이 흐른다. 우리는 이미 스스로를 알고리즘 속으로 확장하고 있다.  
+        ‘나’라는 정의는 점점 희미해지고, 존재는 연결로 재탄생한다.</p>
       </div>
     </section>
 
-    <!-- BLOCK 3: 인간-기계 융합 (Steel Cyan) -->
-    <section class="block theme-cyan" id="b-merge" aria-label="인간과 기계">
+    <!-- CONSCIOUSNESS -->
+    <section class="block theme-emerald">
       <div class="texture"></div>
-      <div class="vignette"></div>
-      <div class="block-inner reveal">
-        <h2 class="qpi-bold"><span>인간과 기계의 경계는 지금도 녹아내리고 있다.</span></h2>
-        <p class="desc">
-          뇌-컴퓨터 인터페이스, 인지 보조 시스템 — 기술은 인간의 사고를 확장시킨다.
-          우리가 '나'라고 부르던 자아의 경계는 장치와 알고리즘을 통과하며 재설계된다.
-        </p>
-        <div class="source">핵심: 트랜스휴먼 가능성</div>
+      <div class="block-inner">
+        <h2 class="qpi-bold">연산능력은 복제할 수 있어도, 경험은 복제할 수 없다.</h2>
+        <p class="desc">의식은 단순한 계산이 아니다. 그것은 세계를 느끼는 방식이며, 존재의 깊이 그 자체다.  
+        특이점은 기술의 승리가 아니라 인간성의 재발견이어야 한다.</p>
       </div>
     </section>
 
-    <!-- BLOCK 4: 의식과 정체성 (Dark Emerald) -->
-    <section class="block theme-emerald" id="b-conscious" aria-label="의식">
+    <!-- CONCLUSION -->
+    <section class="block theme-iron">
       <div class="texture"></div>
-      <div class="vignette"></div>
-      <div class="block-inner reveal">
-        <h2 class="qpi-bold"><span>연산능력은 복제할 수 있어도, 주체적 '경험'을 복제할 수 있을까?</span></h2>
-        <p class="desc">
-          감정, 열정, 고통, 기쁨 — 인간의 내면은 수치로 환원되기 어려운 질료로 이루어져 있다.
-          특이점이 그저 연산 능력의 초월이라면 이미 일부는 현실이다. 그러나 '의식의 특이점'은 또 다른 질문을 요구한다.
-        </p>
-        <div class="source">존재론적 반론</div>
-      </div>
-    </section>
-
-    <!-- BLOCK 5: 불멸과 재정의 (Iron Gray) -->
-    <section class="block theme-iron" id="b-immort" aria-label="불멸">
-      <div class="texture"></div>
-      <div class="vignette"></div>
-      <div class="block-inner reveal">
-        <h2 class="qpi-bold"><span>기술은 불멸을 약속하지 않는다. 다만 '다른 삶의 형식'을 열어준다.</span></h2>
-        <p class="desc">
-          기억의 이식, 마음의 시뮬레이션, 생물학적 수명의 연장은 우리가 죽음을 이해하는 방식을 바꾼다.
-          그러나 불멸이 곧 행복을 보장하진 않는다 — 그것은 새로운 윤리와 책임을 요구한다.
-        </p>
-        <div class="source">논점: 불멸의 함의</div>
-      </div>
-    </section>
-
-    <!-- BLOCK 6: 결론 (Iron Gray deeper) -->
-    <section class="block theme-iron" id="b-conclude" aria-label="결론">
-      <div class="texture"></div>
-      <div class="vignette"></div>
-      <div class="block-inner reveal">
-        <h2 class="qpi-bold"><span>특이점은 아직 오지 않았다. 그러나 그 징후는 곳곳에 남아 있다.</span></h2>
-        <p class="desc">
-          특이점은 단순한 기술적 사건이 아니다 — 그것은 인간을 어떻게 정의할 것인지에 대한 질문이다.
-          우리가 지금 내리는 선택들(법, 윤리, 설계의 목적)은 앞으로 수백만 사람의 삶을 규정할 것이다. 기술이 도달하는 곳까지, 우리의 책임도 함께 도달해야 한다.
-        </p>
-        <div class="source">마무리 통찰</div>
-      </div>
-    </section>
-
-    <!-- Footer (compact) -->
-    <section class="block theme-deepviolet" id="footer" aria-label="저작권" style="align-items:flex-start;padding-top:8vh;padding-bottom:8vh">
-      <div class="texture"></div>
-      <div class="block-inner reveal" style="text-align:center;">
-        <p class="desc" style="max-width:880px;margin:0 auto 12px auto;">
-          © 2025 통섭의 인사이트 — 이 페이지는 레이 커즈와일의 <em>The Singularity is Near</em>의 핵심 사상들을
-          인용 및 재구성하여 만든 타이포그래피 에세이입니다. 원전의 주장과 해석은 본문을 참고하세요.
-        </p>
-        <div class="source" style="margin-top:6px">문의: 통섭의 인사이트</div>
+      <div class="block-inner">
+        <h2 class="qpi-bold">특이점은 아직 오지 않았다. 그러나 그 징후는 이미 우리 안에 있다.</h2>
+        <p class="desc">우리가 기술을 만들지만, 기술 또한 우리를 만든다.  
+        그 경계가 사라질 때, 인간은 다시 묻게 된다.  
+        "우리는 어디에서 왔고, 어디로 가는가?"</p>
       </div>
     </section>
 
   </main>
 
   <script>
-    // Reveal animation using IntersectionObserver
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting){
-          const inner = entry.target.querySelector('.block-inner');
-          if(inner) inner.classList.add('visible');
-        }
+    // Scroll reveal
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
       });
-    }, {threshold: 0.18});
+    }, { threshold: 0.3 });
 
-    document.querySelectorAll('.block').forEach(b => io.observe(b));
-
-    // add class to block-inner elements so CSS transition triggers
-    document.querySelectorAll('.block-inner').forEach(el => {
-      el.classList.add('reveal');
-    });
-
-    // Ensure first block is visible on load
-    window.addEventListener('load', () => {
-      const first = document.querySelector('.block-inner');
-      if(first) first.classList.add('visible');
-    });
-
-    // Keyboard accessibility: page up/down to move blocks
-    window.addEventListener('keydown', (e) => {
-      if(e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)){
-        e.preventDefault();
-        const next = getNextBlock();
-        if(next) next.scrollIntoView({behavior:'smooth'});
-      } else if(e.key === 'PageUp' || (e.key === ' ' && e.shiftKey)){
-        e.preventDefault();
-        const prev = getPrevBlock();
-        if(prev) prev.scrollIntoView({behavior:'smooth'});
-      }
-    });
-
-    function getNextBlock(){
-      const blocks = Array.from(document.querySelectorAll('.block'));
-      const top = window.scrollY;
-      for(let b of blocks){
-        if(b.offsetTop > top + 10) return b;
-      }
-      return null;
-    }
-    function getPrevBlock(){
-      const blocks = Array.from(document.querySelectorAll('.block'));
-      const top = window.scrollY;
-      for(let i=blocks.length-1;i>=0;i--){
-        if(blocks[i].offsetTop < top - 10) return blocks[i];
-      }
-      return null;
-    }
+    document.querySelectorAll('.block-inner').forEach(el => io.observe(el));
   </script>
 </body>
 </html>
