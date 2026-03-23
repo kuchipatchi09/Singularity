@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QPI | CALCULUS v3</title>
+    <title>QPI | ZERO NOISE CALCULUS</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
@@ -13,43 +13,49 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', sans-serif; }
         body { background-color: var(--bg); color: var(--text); height: 100vh; overflow: hidden; }
 
-        .container { display: grid; grid-template-columns: 1.3fr 0.7fr; height: 100%; }
+        .container { display: grid; grid-template-columns: 1.4fr 0.6fr; height: 100%; }
 
-        /* 좌측: 결과창 */
+        /* 좌측: 전개창 (노이즈 제거) */
         .solution-view {
-            padding: 60px; border-right: 1px solid var(--border);
+            padding: 60px 80px; border-right: 1px solid var(--border);
             overflow-y: auto; background: #000;
         }
-        .solution-view h2 { font-size: 0.8rem; font-weight: 900; letter-spacing: 5px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 40px; color: #888; }
+        .solution-view h2 { font-size: 0.7rem; font-weight: 900; letter-spacing: 8px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 50px; color: #666; }
         
-        #output { min-height: 200px; }
-        .step-label { font-size: 0.9rem; font-weight: 800; border: 1px solid #fff; display: inline-block; padding: 3px 10px; margin-top: 30px; margin-bottom: 10px; }
-        .katex-display { margin: 20px 0 !important; text-align: left !important; }
-        .katex { font-size: 1.2rem !important; }
+        #output { color: #eee; }
+        /* STEP 라벨 디자인 최적화 */
+        .step-label { 
+            font-size: 0.8rem; font-weight: 900; border: 1.5px solid #fff; 
+            display: inline-block; padding: 4px 12px; margin-top: 40px; margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        /* 수식 출력 최적화 */
+        .katex-display { margin: 25px 0 !important; text-align: left !important; }
+        .katex { font-size: 1.25rem !important; letter-spacing: 0.5px; }
 
         /* 우측: 입력창 */
-        .input-view { padding: 60px; display: flex; flex-direction: column; justify-content: center; gap: 30px; }
-        .logo { font-size: 3rem; font-weight: 900; letter-spacing: -4px; line-height: 0.8; margin-bottom: 10px; }
+        .input-view { padding: 60px; display: flex; flex-direction: column; justify-content: center; gap: 35px; }
+        .logo { font-size: 3.2rem; font-weight: 900; letter-spacing: -5px; line-height: 0.8; margin-bottom: 15px; }
         
-        .input-group { position: relative; border-bottom: 2px solid #fff; padding: 15px 0; display: flex; align-items: center; }
-        .integral-symbol { font-size: 3rem; margin-right: 15px; font-weight: 200; }
+        .input-group { position: relative; border-bottom: 2.5px solid #fff; padding: 15px 0; display: flex; align-items: center; }
+        .integral-symbol { font-size: 3.5rem; margin-right: 15px; font-weight: 200; }
         #formula-input {
             background: transparent; border: none;
-            color: white; font-size: 2rem; outline: none; width: 100%;
+            color: white; font-size: 2.2rem; outline: none; width: 100%;
             font-weight: 200;
         }
-        .dx-symbol { font-size: 1.8rem; font-weight: 500; margin-left: 10px; }
+        .dx-symbol { font-size: 2rem; font-weight: 600; margin-left: 10px; }
 
         .calc-btn {
-            background: #FFFFFF; color: #000000; border: none; padding: 20px;
-            font-weight: 900; cursor: pointer; font-size: 1.1rem; letter-spacing: 2px;
-            transition: 0.2s;
+            background: #FFFFFF; color: #000000; border: none; padding: 22px;
+            font-weight: 900; cursor: pointer; font-size: 1.1rem; letter-spacing: 3px;
+            transition: all 0.3s;
         }
-        .calc-btn:hover { background: #888; color: #fff; }
+        .calc-btn:hover { background: #333; color: #fff; letter-spacing: 6px; }
         
-        #loading { display: none; margin-top: 15px; font-size: 0.7rem; letter-spacing: 5px; color: #555; text-align: center; }
+        #loading { display: none; margin-top: 20px; font-size: 0.65rem; letter-spacing: 6px; color: #444; text-align: center; font-weight: 800; }
 
-        ::-webkit-scrollbar { width: 2px; }
+        ::-webkit-scrollbar { width: 1px; }
         ::-webkit-scrollbar-thumb { background: #fff; }
     </style>
 </head>
@@ -57,24 +63,24 @@
 
 <div class="container">
     <div class="solution-view">
-        <h2>LOGIC_EXPANSION</h2>
+        <h2>LOGIC_STREAM</h2>
         <div id="output">
-            <p style="color:#444;">WAITING_FOR_INPUT...</p>
+            <p style="color:#333; font-weight: 800;">SYSTEM_READY_FOR_INTEGRATION</p>
         </div>
-        <div id="loading">EXECUTING_GEMINI_3_FLASH...</div>
+        <div id="loading">COMPUTING_VIA_GEMINI_3_FLASH...</div>
     </div>
 
     <div class="input-view">
-        <div class="logo">QPI<br>INTEGRAL</div>
+        <div class="logo">QPI<br>CALC</div>
         
         <div class="input-group">
             <span class="integral-symbol">∫</span>
-            <input type="text" id="formula-input" placeholder="f(x)" autocomplete="off" onkeypress="if(event.keyCode==13) solve()">
+            <input type="text" id="formula-input" placeholder="INPUT_FUNCTION" autocomplete="off" onkeypress="if(event.keyCode==13) solve()">
             <span class="dx-symbol">dx</span>
         </div>
         
-        <button class="calc-btn" onclick="solve()">SOLVE</button>
-        <div id="loading">PROCESSING...</div>
+        <button class="calc-btn" onclick="solve()">EXECUTE</button>
+        <div id="loading">RUNNING...</div>
     </div>
 </div>
 
@@ -92,18 +98,16 @@
         output.innerHTML = "";
         loading.forEach(l => l.style.display = "block");
 
-        // 프롬프트: 텍스트 서술을 금지하고 수식 구조만 요청
-        const prompt = `너는 수학적 증명 엔진이야. 함수 f(x) = ${input} 의 부정적분을 계산해.
-        [규칙]
-        0. 문자 강조하는 명령어 수식(예. **) 사용금지
-        1. 자연어 설명은 최소화하고 오직 수식 전개 과정만 보여줄 것.
-        2. 단계별로 'STEP 1', 'STEP 2' 라벨을 사용할 것.
-        3. 모든 수식은 $$ 기호로 감싸서 LaTeX로 작성할 것.
-        4. 최종 결과는 \mathbf{}를 사용하여 강조할 것.
-        5. 한국어로 답변하되 수식 위주로 작성할 것.`;
+        // 시인성 저하 요소를 원천 차단하는 초정밀 프롬프트
+        const prompt = `너는 불필요한 텍스트를 배제하는 수학 전개 엔진이야. 함수 f(x) = ${input} 의 부정적분을 전개해.
+        [반드시 지킬 것]
+        1. 모든 설명은 제거하고 오직 단계별 수식만 보여줄 것.
+        2. 단계는 오직 'STEP 1', 'STEP 2' 형식의 일반 텍스트로만 시작할 것. (불렛포인트, 하이픈 금지)
+        3. 모든 수식은 $$ 기호로 감싸서 LaTeX 디스플레이 모드로 작성할 것.
+        4. 부분적분 시 u, du, dv, v의 정의를 한 줄의 수식 안에 담을 것.
+        5. 수식 이외의 문장은 작성하지 말 것.`;
 
         try {
-            // gemini-3-flash-preview 모델을 위한 v1beta 경로
             const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${API_KEY}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -115,13 +119,13 @@
             const data = await response.json();
 
             if (data.error) {
-                output.innerHTML = `<div style="color:red; font-family:monospace;">[ERROR] ${data.error.message}</div>`;
+                output.innerHTML = `<div style="color:#555;">[FATAL_ERROR] ${data.error.message}</div>`;
             } else {
                 const resultText = data.candidates[0].content.parts[0].text;
                 renderMath(resultText);
             }
         } catch (error) {
-            output.innerHTML = "SYSTEM_CONNECTION_FAILED";
+            output.innerHTML = "SYSTEM_OFFLINE";
         } finally {
             loading.forEach(l => l.style.display = "none");
         }
@@ -130,12 +134,16 @@
     function renderMath(text) {
         const output = document.getElementById('output');
         
-        // STEP 라벨을 디자인 요소로 치환하고 수식 렌더링 준비
-        let processedText = text.replace(/STEP (\d+)/g, '<div class="step-label">STEP $1</div>');
+        // 시인성을 방해하는 잡다한 마크다운 기호 제거 로직 추가
+        let cleanText = text
+            .replace(/###/g, '') // 헤더 기호 제거
+            .replace(/\*/g, '')  // 불렛/강조 기호 제거
+            .replace(/-/g, '')   // 하이픈 제거
+            .replace(/STEP (\d+)/g, '<div class="step-label">STEP $1</div>');
         
-        output.innerHTML = processedText;
+        output.innerHTML = cleanText;
 
-        // KaTeX를 사용하여 페이지 내의 모든 LaTeX 수식 변환
+        // KaTeX 렌더링
         renderMathInElement(output, {
             delimiters: [
                 {left: "$$", right: "$$", display: true},
