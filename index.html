@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QPI | INTEGRAL SOLVER</title>
+    <title>QPI | INTEGRAL FLASH</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
     <style>
         :root { --bg: #000000; --text: #FFFFFF; --border: #FFFFFF; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Pretendard', sans-serif; }
@@ -14,103 +12,118 @@
 
         .container { display: grid; grid-template-columns: 1.5fr 1fr; height: 100%; }
 
-        /* 좌측: 전개 과정 출력 */
+        /* 좌측: 전개 과정 */
         .solution-view {
             padding: 40px; border-right: 1px solid var(--border);
-            overflow-y: auto; display: flex; flex-direction: column; gap: 20px;
+            overflow-y: auto; background: #000;
         }
-        .solution-view h2 { font-size: 1rem; font-weight: 900; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 20px; }
-        .step-box { line-height: 1.8; font-size: 1.1rem; }
+        .solution-view h2 { font-size: 0.9rem; font-weight: 900; letter-spacing: 2px; border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-bottom: 30px; }
+        
+        /* AI 응답 스타일링 */
+        .step-content { line-height: 1.8; font-size: 1rem; color: #ccc; }
+        .step-content b { color: #fff; display: block; margin-top: 20px; font-size: 1.1rem; }
+        .math-block { background: #111; padding: 15px; margin: 10px 0; border: 1px inset #333; font-family: 'Courier New', monospace; color: #fff; }
 
-        /* 우측: 입력 칸 */
-        .input-view { padding: 40px; display: flex; flex-direction: column; justify-content: center; gap: 20px; }
-        .input-view h1 { font-size: 2rem; font-weight: 900; letter-spacing: -2px; margin-bottom: 10px; }
+        /* 우측: 입력창 */
+        .input-view { padding: 60px; display: flex; flex-direction: column; justify-content: center; gap: 25px; }
+        .logo { font-size: 2.5rem; font-weight: 900; letter-spacing: -3px; line-height: 0.9; margin-bottom: 10px; }
+        .input-group { position: relative; }
+        .integral-symbol { position: absolute; left: -30px; top: 15px; font-size: 2rem; font-weight: 200; }
+        .dx-symbol { position: absolute; right: 15px; top: 22px; font-size: 1.2rem; color: #888; }
+        
         #formula-input {
-            background: transparent; border: 1px solid var(--border); padding: 20px;
-            color: white; font-size: 1.2rem; outline: none; width: 100%;
+            background: transparent; border: 1px solid var(--border); padding: 20px 50px 20px 20px;
+            color: white; font-size: 1.3rem; outline: none; width: 100%; font-weight: 300;
         }
         .calc-btn {
-            background: #FFFFFF; color: #000000; border: none; padding: 15px;
-            font-weight: 900; cursor: pointer; transition: 0.2s; font-size: 1rem;
+            background: #FFFFFF; color: #000000; border: none; padding: 18px;
+            font-weight: 900; cursor: pointer; font-size: 1rem; letter-spacing: 1px;
         }
-        .calc-btn:hover { background: #CCCCCC; }
+        #loading { display: none; margin-top: 10px; font-size: 0.8rem; letter-spacing: 4px; color: #888; text-align: center; }
 
-        #loading { display: none; font-size: 0.9rem; letter-spacing: 2px; text-align: center; }
-
-        /* 스크롤바 디자인 */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-thumb { background: var(--border); }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-thumb { background: #fff; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="solution-view" id="solution-view">
-        <h2>SOLVING PROCESS</h2>
-        <div id="loading">CALCULATING...</div>
-        <div id="output" class="step-box">적분할 수식을 입력하고 SOLVE 버튼을 누르세요.</div>
+    <div class="solution-view">
+        <h2>ANALYSIS_PROCESS</h2>
+        <div id="output" class="step-content">함수를 입력하면 분석이 시작됩니다.</div>
+        <div id="loading">RUNNING_ALGORITHM...</div>
     </div>
 
     <div class="input-view">
-        <h1>QPI<br>INTEGRAL</h1>
-        <p style="font-size: 0.8rem; color: #888;">입력 예시: integral of x^2 sin(x) dx</p>
-        <input type="text" id="formula-input" placeholder="∫ f(x) dx" onkeypress="if(event.keyCode==13) solveIntegral()">
-        <button class="calc-btn" onclick="solveIntegral()">SOLVE</button>
+        <div class="logo">QPI<br>CALCULUS</div>
+        <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">적분할 함수만 입력하세요 (dx 자동 추가)</p>
+        
+        <div class="input-group">
+            <span class="integral-symbol">∫</span>
+            <input type="text" id="formula-input" placeholder="x^2 + 5x" onkeypress="if(event.keyCode==13) solve()">
+            <span class="dx-symbol">dx</span>
+        </div>
+        
+        <button class="calc-btn" onclick="solve()">SOLVE</button>
     </div>
 </div>
 
 <script>
-    const API_KEY = "AIzaSyBSTtIf7QDIbVzKPWReLmvG8xn6DDoOIx4"; // 기장님 API 키
+    const API_KEY = "AIzaSyBSTtIf7QDIbVzKPWReLmvG8xn6DDoOIx4";
+    const MODEL = "gemini-1.5-flash"; // 플래시 모델로 고정
 
-    async function solveIntegral() {
-        const formula = document.getElementById('formula-input').value;
+    async function solve() {
+        const input = document.getElementById('formula-input').value;
         const output = document.getElementById('output');
         const loading = document.getElementById('loading');
 
-        if (!formula) return;
+        if (!input) return;
 
         output.innerHTML = "";
         loading.style.display = "block";
 
+        const prompt = `너는 수학적 분석을 수행하는 QPI 시스템이야. 
+        사용자가 입력한 함수 f(x) = ${input} 에 대한 부정적분 (integral ${input} dx)을 계산해줘.
+        
+        [출력 규칙]
+        1. 반드시 한국어로 단계별 풀이 과정을 설명할 것.
+        2. 수식은 가독성을 위해 LaTeX 형식을 사용하되, 가급적 명확하게 적어줄 것.
+        3. 마지막에는 최종 결과값을 강조해서 보여줄 것.
+        4. 불필요한 인사말은 생략하고 바로 풀이부터 시작할 것.`;
+
         try {
-            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${API_KEY}`, {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    contents: [{
-                        parts: [{
-                            text: `당신은 최고의 수학자입니다. 다음 적분 문제의 전개 과정을 아주 상세하게 단계별로 설명해주세요. 
-                            반드시 한국어로 설명하되, 수식은 LaTeX 형식으로 써주세요. 
-                            결과만 보여주지 말고 중간 과정을 논리적으로 보여주세요. 
-                            문제: ${formula}`
-                        }]
-                    }]
+                    contents: [{ parts: [{ text: prompt }] }]
                 })
             });
 
             const data = await response.json();
-            const resultText = data.candidates[0].content.parts[0].text;
             
-            // 마크다운 형식의 텍스트를 줄바꿈 및 수식 처리
-            loading.style.display = "none";
-            renderResponse(resultText);
-
+            if (data.error) {
+                output.innerText = "Error: " + data.error.message;
+            } else {
+                const text = data.candidates[0].content.parts[0].text;
+                formatAndRender(text);
+            }
         } catch (error) {
+            output.innerText = "연동 실패. 네트워크나 API 키를 확인하세요.";
+        } finally {
             loading.style.display = "none";
-            output.innerText = "오류가 발생했습니다. API 키 또는 네트워크를 확인하세요.";
         }
     }
 
-    function renderResponse(text) {
+    function formatAndRender(text) {
         const output = document.getElementById('output');
-        // 간단한 마크다운 수식 변환 (실제 서비스 시에는 더 정교한 파서 사용 권장)
-        const formatted = text
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\n/g, '<br>');
+        // 마크다운 문법을 HTML로 간단히 변환
+        let html = text
+            .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') // 볼드체
+            .replace(/```([\s\S]*?)```/g, '<div class="math-block">$1</div>') // 코드 블록
+            .replace(/\n/g, '<br>'); // 줄바꿈
         
-        output.innerHTML = formatted;
-        
-        // LaTeX 렌더링 (KaTeX 자동 적용은 추가 라이브러리가 필요할 수 있으나 기본 텍스트는 출력됨)
+        output.innerHTML = html;
     }
 </script>
 
