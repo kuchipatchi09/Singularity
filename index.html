@@ -232,16 +232,22 @@
       content: "2";
     
       position: absolute;
-      right: -3vw;
-      bottom: -10vh;
+    
+      /* 위치 조정 */
+      right: -5vw;
+      bottom: -3vh;
       z-index: 0;
     
       color: transparent;
-      -webkit-text-stroke: 2px rgba(201, 42, 52, 0.15);
     
-      font-size: min(42vw, 560px);
+      /* 외곽선도 조금 더 선명하게 */
+      -webkit-text-stroke:
+        3px rgba(201, 42, 52, 0.2);
+    
+      /* 기존 42vw → 68vw */
+      font-size: min(68vw, 780px);
       font-weight: 900;
-      line-height: 0.8;
+      line-height: 0.78;
     
       pointer-events: none;
     }
