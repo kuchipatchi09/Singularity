@@ -223,7 +223,40 @@
     /* =========================
        4. 메인 화면
     ========================= */
-
+    .hero {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::after {
+      content: "2";
+    
+      position: absolute;
+      right: -3vw;
+      bottom: -10vh;
+      z-index: 0;
+    
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(201, 42, 52, 0.15);
+    
+      font-size: min(42vw, 560px);
+      font-weight: 900;
+      line-height: 0.8;
+    
+      pointer-events: none;
+    }
+    
+    .hero-inner,
+    .hero-signal {
+      position: relative;
+      z-index: 1;
+    }
+    
+    @media (max-width: 900px) {
+      .hero::after {
+        display: none;
+      }
+    }
     .hero {
       min-height: calc(100svh - 72px);
 
