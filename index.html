@@ -10,12 +10,11 @@
 
   <meta
     name="description"
-    content="할 때는 좋은 환경에서, 놀 땐 제대로. 기호 2번 황석현·이재경의 6대 공약."
+    content="할 때는 좋은 환경에서, 놀 땐 제대로. 기호 2번 황석현·이재경의 핵심 공약."
   >
 
   <title>기호 2번 황석현 × 이재경 | 제32대 학생회</title>
 
-  <!-- Pretendard -->
   <link
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css"
@@ -115,8 +114,6 @@
         max(32px, calc((100vw - var(--content-width)) / 2));
     }
 
-    /* 등장 애니메이션 */
-
     [data-reveal] {
       opacity: 0;
       transform: translateY(28px);
@@ -152,7 +149,6 @@
       justify-content: space-between;
 
       background: rgba(245, 241, 233, 0.94);
-
       border-bottom: 1px solid var(--line);
 
       backdrop-filter: blur(16px);
@@ -223,53 +219,43 @@
     /* =========================
        4. 메인 화면
     ========================= */
+
     .hero {
       position: relative;
       overflow: hidden;
-    }
-    
-    .hero::after {
-      content: "2";
-    
-      position: absolute;
-    
-      /* 위치 조정 */
-      right: -5vw;
-      bottom: -3vh;
-      z-index: 0;
-    
-      color: transparent;
-    
-      /* 외곽선도 조금 더 선명하게 */
-      -webkit-text-stroke:
-        3px rgba(201, 42, 52, 0.2);
-    
-      /* 기존 42vw → 68vw */
-      font-size: min(68vw, 780px);
-      font-weight: 900;
-      line-height: 0.78;
-    
-      pointer-events: none;
-    }
-    
-    .hero-inner,
-    .hero-signal {
-      position: relative;
-      z-index: 1;
-    }
-    
-    @media (max-width: 900px) {
-      .hero::after {
-        display: none;
-      }
-    }
-    .hero {
+
       min-height: calc(100svh - 72px);
 
       display: flex;
       flex-direction: column;
 
       background: var(--paper);
+    }
+
+    .hero::after {
+      content: "2";
+
+      position: absolute;
+      right: -5vw;
+      bottom: -3vh;
+      z-index: 0;
+
+      color: transparent;
+
+      -webkit-text-stroke:
+        3px rgba(201, 42, 52, 0.2);
+
+      font-size: min(68vw, 780px);
+      font-weight: 900;
+      line-height: 0.78;
+
+      pointer-events: none;
+    }
+
+    .hero-inner,
+    .hero-signal {
+      position: relative;
+      z-index: 1;
     }
 
     .hero-inner {
@@ -299,24 +285,22 @@
 
     .hero h1 {
       margin: 5vh 0;
-    
+
       display: grid;
       grid-template-columns:
         minmax(0, 0.62fr)
         minmax(0, 1.38fr);
-    
+
       align-items: baseline;
       column-gap: 3vw;
-    
-      /* 두 문장 사이 간격 추가 */
       row-gap: clamp(24px, 3vh, 46px);
-    
+
       font-size: clamp(62px, 8.7vw, 138px);
       font-weight: 900;
       line-height: 0.88;
+
       letter-spacing: -0.085em;
     }
-    
 
     .hero h1 span,
     .hero h1 strong {
@@ -327,8 +311,6 @@
     .hero h1 span {
       color: var(--muted);
       font-weight: 450;
-    
-      /* '할 때는', '놀 땐' 오른쪽 정렬 */
       text-align: right;
     }
 
@@ -421,7 +403,7 @@
     }
 
     /* =========================
-       5. 6대 공약
+       5. 핵심 공약
     ========================= */
 
     .promise-section {
@@ -497,6 +479,93 @@
       transition:
         background 0.25s ease,
         color 0.25s ease;
+    }
+
+    /* 충곽 에브리타임 강조 카드 */
+
+    .promise-card.featured {
+      position: relative;
+      overflow: hidden;
+
+      grid-column: 1 / -1;
+      min-height: 500px;
+
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .promise-card.featured::after {
+      content: "EVERYTIME";
+
+      position: absolute;
+      right: -18px;
+      bottom: -30px;
+
+      color: transparent;
+
+      -webkit-text-stroke:
+        1px rgba(255, 255, 255, 0.1);
+
+      font-size: clamp(82px, 13vw, 190px);
+      font-weight: 900;
+      line-height: 0.8;
+
+      letter-spacing: -0.08em;
+      pointer-events: none;
+    }
+
+    .promise-card.featured .promise-top,
+    .promise-feature-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .promise-card.featured .promise-number,
+    .promise-card.featured .promise-category {
+      color: var(--white);
+    }
+
+    .promise-feature-content {
+      display: grid;
+      grid-template-columns:
+        minmax(0, 1.15fr)
+        minmax(300px, 0.85fr);
+
+      align-items: end;
+      gap: 70px;
+    }
+
+    .promise-card.featured .promise-copy h3 {
+      font-size: clamp(48px, 6vw, 84px);
+    }
+
+    .promise-card.featured .promise-copy strong {
+      color: #ffd6d8;
+    }
+
+    .promise-card.featured .promise-copy p {
+      max-width: 720px;
+      color: #d4d0c9;
+    }
+
+    .promise-feature-list {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+      gap: 0 22px;
+    }
+
+    .promise-feature-list span {
+      padding: 16px 0;
+
+      border-top: 1px solid #4e4d4b;
+
+      color: var(--white);
+
+      font-size: 14px;
+      font-weight: 750;
+      line-height: 1.4;
     }
 
     .promise-card.play {
@@ -618,9 +687,9 @@
       background: var(--red);
       color: var(--white);
 
-      box-shadow: 0 12px 35px rgba(59, 30, 30, 0.08);
+      box-shadow:
+        0 12px 35px rgba(59, 30, 30, 0.08);
 
-      /* 테이프가 기울지 않도록 고정 */
       transform: none;
     }
 
@@ -689,7 +758,8 @@
       margin-top: 55px;
 
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
 
       border-top: 1px solid #4e4d4b;
     }
@@ -732,7 +802,6 @@
         minmax(0, 1.2fr);
 
       gap: 8vw;
-
       background: var(--paper);
     }
 
@@ -752,7 +821,6 @@
 
     .more-item {
       min-width: 0;
-
       padding: 25px 0;
 
       display: grid;
@@ -777,7 +845,6 @@
 
     .more-item h3 {
       margin: 0;
-
       font-size: 21px;
     }
 
@@ -886,12 +953,16 @@
     }
 
     /* =========================
-       11. 모바일
+       11. 반응형
     ========================= */
 
     @media (max-width: 900px) {
       section {
         scroll-margin-top: 64px;
+      }
+
+      .hero::after {
+        display: none;
       }
 
       .topbar {
@@ -1003,6 +1074,16 @@
         padding: 27px 23px;
       }
 
+      .promise-card.featured {
+        grid-column: auto;
+        min-height: 540px;
+      }
+
+      .promise-feature-content {
+        grid-template-columns: 1fr;
+        gap: 38px;
+      }
+
       .tape-section {
         padding-top: 60px;
         padding-bottom: 60px;
@@ -1030,7 +1111,9 @@
       }
 
       .more-item {
-        grid-template-columns: 40px minmax(0, 1fr);
+        grid-template-columns:
+          40px
+          minmax(0, 1fr);
       }
 
       .more-item p {
@@ -1047,7 +1130,9 @@
       }
 
       .closing-names {
-        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-columns:
+          auto
+          minmax(0, 1fr);
       }
 
       .closing-names small {
@@ -1097,6 +1182,14 @@
         font-size: 32px;
       }
 
+      .promise-card.featured .promise-copy h3 {
+        font-size: clamp(42px, 12vw, 58px);
+      }
+
+      .promise-feature-list {
+        grid-template-columns: 1fr;
+      }
+
       .principles {
         grid-template-columns: 1fr;
       }
@@ -1128,10 +1221,6 @@
 </head>
 
 <body>
-  <!-- =========================
-       상단 메뉴
-  ========================== -->
-
   <header class="topbar">
     <a
       class="brand"
@@ -1157,16 +1246,14 @@
     </button>
 
     <nav aria-label="주요 메뉴">
-      <a href="#promises">6대 공약</a>
+      <a href="#promises">핵심 공약</a>
       <a href="#why">왜 우리인가</a>
       <a href="#more">이어갈 약속</a>
     </nav>
   </header>
 
   <main>
-    <!-- =========================
-         메인 화면
-    ========================== -->
+    <!-- 메인 화면 -->
 
     <section class="hero" id="top">
       <div class="hero-inner">
@@ -1215,9 +1302,7 @@
       </div>
     </section>
 
-    <!-- =========================
-         6대 핵심 공약
-    ========================== -->
+    <!-- 핵심 공약 -->
 
     <section
       class="promise-section"
@@ -1229,7 +1314,7 @@
       >
         <div>
           <p class="section-code">
-            06 CLEAR PROMISES
+            05 CLEAR PROMISES
           </p>
 
           <h2>
@@ -1248,28 +1333,44 @@
         <!-- 공약 01 -->
 
         <article
-          class="promise-card"
+          class="promise-card featured"
           data-reveal
         >
           <div class="promise-top">
             <span class="promise-number">01</span>
+
             <small class="promise-category">
               SMART CAMPUS
             </small>
           </div>
 
-          <div class="promise-copy">
-            <h3>충곽 에브리타임 개발</h3>
+          <div class="promise-feature-content">
+            <div class="promise-copy">
+              <h3>충곽 에브리타임 개발</h3>
 
-            <strong>
-              학교생활에 필요한 모든 것을 한곳에.
-            </strong>
+              <strong>
+                흩어진 충곽 생활을 하나의 사이트로.
+              </strong>
 
-            <p>
-              각 반 시간표와 방과후 일정, 급식,
-              학생 중심 커뮤니티, 교내 예약 시스템을
-              하나의 학생 편의 사이트로 통합합니다.
-            </p>
+              <p>
+                각 학년·반 시간표부터 방과후 일정과 급식 확인,
+                학생 중심 커뮤니티와 여러 교내 예약 시스템까지
+                매일 필요한 기능을 하나의 학생 편의 사이트로
+                통합합니다.
+              </p>
+            </div>
+
+            <div
+              class="promise-feature-list"
+              aria-label="충곽 에브리타임 핵심 기능"
+            >
+              <span>학년·반별 시간표</span>
+              <span>방과후 일정</span>
+              <span>오늘의 급식</span>
+              <span>학생 커뮤니티</span>
+              <span>시설·공간 예약</span>
+              <span>학교생활 알림</span>
+            </div>
           </div>
         </article>
 
@@ -1281,34 +1382,7 @@
         >
           <div class="promise-top">
             <span class="promise-number">02</span>
-            <small class="promise-category">
-              BETTER GROUND
-            </small>
-          </div>
 
-          <div class="promise-copy">
-            <h3>운동장 인조잔디</h3>
-
-            <strong>
-              먼지 대신, 마음껏 뛸 수 있는 운동장.
-            </strong>
-
-            <p>
-              체육활동의 안전성과 만족도를 높일 수 있도록
-              인조잔디 설치 요구를 공식화하고
-              예산과 일정 협의를 끝까지 추진합니다.
-            </p>
-          </div>
-        </article>
-
-        <!-- 공약 03 -->
-
-        <article
-          class="promise-card play"
-          data-reveal
-        >
-          <div class="promise-top">
-            <span class="promise-number">03</span>
             <small class="promise-category">
               PLAY TOGETHER
             </small>
@@ -1329,14 +1403,15 @@
           </div>
         </article>
 
-        <!-- 공약 04 -->
+        <!-- 공약 03 -->
 
         <article
           class="promise-card"
           data-reveal
         >
           <div class="promise-top">
-            <span class="promise-number">04</span>
+            <span class="promise-number">03</span>
+
             <small class="promise-category">
               NEW ID
             </small>
@@ -1357,14 +1432,15 @@
           </div>
         </article>
 
-        <!-- 공약 05 -->
+        <!-- 공약 04 -->
 
         <article
           class="promise-card"
           data-reveal
         >
           <div class="promise-top">
-            <span class="promise-number">05</span>
+            <span class="promise-number">04</span>
+
             <small class="promise-category">
               MORE POWER
             </small>
@@ -1385,14 +1461,15 @@
           </div>
         </article>
 
-        <!-- 공약 06 -->
+        <!-- 공약 05 -->
 
         <article
           class="promise-card"
           data-reveal
         >
           <div class="promise-top">
-            <span class="promise-number">06</span>
+            <span class="promise-number">05</span>
+
             <small class="promise-category">
               CHANJO STAGE
             </small>
@@ -1415,9 +1492,7 @@
       </div>
     </section>
 
-    <!-- =========================
-         수평 공약 테이프
-    ========================== -->
+    <!-- 수평 공약 테이프 -->
 
     <section
       class="tape-section"
@@ -1435,7 +1510,8 @@
         <b>체육 환경 개선</b>
 
         <span>
-          인조잔디 · 충북과학고 교류 · 외부 체육대회
+          충북과학고 교류 · 외부 체육대회 ·
+          체육 시설 개선 노력
         </span>
       </div>
 
@@ -1448,9 +1524,7 @@
       </div>
     </section>
 
-    <!-- =========================
-         후보 이야기
-    ========================== -->
+    <!-- 후보 이야기 -->
 
     <section
       class="why section-pad"
@@ -1506,9 +1580,7 @@
       </div>
     </section>
 
-    <!-- =========================
-         이어갈 기존 공약
-    ========================== -->
+    <!-- 이어갈 기존 공약 -->
 
     <section
       class="more section-pad"
@@ -1533,32 +1605,33 @@
         data-reveal
       >
         <div class="more-item">
-          <span>07</span>
+          <span>06</span>
           <h3>E스포츠</h3>
           <p>학년대항 대회 종목 투표부터 운영·중계까지</p>
         </div>
 
         <div class="more-item">
-          <span>08</span>
+          <span>07</span>
           <h3>충전스테이션 설치</h3>
           <p>충전 장소 증설</p>
         </div>
 
         <div class="more-item">
-          <span>09</span>
+          <span>08</span>
           <h3>스터디카페</h3>
           <p>예약 절차를 단순화해 안정적으로 재운영</p>
         </div>
 
         <div class="more-item">
-          <span>10</span>
+          <span>09</span>
           <h3>기숙사</h3>
           <p>샤워실·세면실 등 반복되는 불편 개선</p>
         </div>
 
         <div class="more-item">
-          <span>11</span>
+          <span>10</span>
           <h3>학생복지</h3>
+
           <p>
             학생 의견 급식·영화데이·충곽 인스타그램 등
             좋은 제도 계승
@@ -1566,16 +1639,14 @@
         </div>
 
         <div class="more-item">
-          <span>12</span>
+          <span>11</span>
           <h3>소통</h3>
           <p>접수한 의견과 처리 과정을 다시 공개</p>
         </div>
       </div>
     </section>
 
-    <!-- =========================
-         마지막 메시지
-    ========================== -->
+    <!-- 마지막 메시지 -->
 
     <section class="closing">
       <p class="section-code">
@@ -1603,10 +1674,6 @@
     </section>
   </main>
 
-  <!-- =========================
-       하단
-  ========================== -->
-
   <footer>
     <span>CANDIDATE 2</span>
     <span>FOR A BETTER CHUNGGWAK</span>
@@ -1616,9 +1683,14 @@
   <script>
     /* 모바일 메뉴 */
 
-    const menuButton = document.querySelector(".menu-button");
-    const navigation = document.querySelector(".topbar nav");
-    const navigationLinks = document.querySelectorAll(".topbar nav a");
+    const menuButton =
+      document.querySelector(".menu-button");
+
+    const navigation =
+      document.querySelector(".topbar nav");
+
+    const navigationLinks =
+      document.querySelectorAll(".topbar nav a");
 
     menuButton.addEventListener("click", function () {
       const isOpen = navigation.classList.toggle("open");
@@ -1628,7 +1700,8 @@
         String(isOpen)
       );
 
-      menuButton.textContent = isOpen ? "닫기" : "메뉴";
+      menuButton.textContent =
+        isOpen ? "닫기" : "메뉴";
     });
 
     navigationLinks.forEach(function (link) {
